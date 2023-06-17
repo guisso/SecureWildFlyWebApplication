@@ -10,7 +10,7 @@ import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
 
 @Named
 @DatabaseIdentityStoreDefinition(
-        dataSourceLookup = "java:/PostgresDS",
+        dataSourceLookup = "java:/SecureDS",
         callerQuery = "select user_password from users "
         + "where username = ?",
         groupsQuery = "select user_group from users "
