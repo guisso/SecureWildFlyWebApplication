@@ -28,7 +28,6 @@ import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
                 useForwardToLogin = false
         )
 )
-@FacesConfig
 @ApplicationScoped
 public class ApplicationConfig {
 
