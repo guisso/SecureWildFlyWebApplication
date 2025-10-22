@@ -1,16 +1,16 @@
 package io.github.guisso.services;
 
 import io.github.guisso.entities.User;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Initialized;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
+import jakarta.ejb.EJB;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Initialized;
+import jakarta.enterprise.event.Observes;
 
 @ApplicationScoped
 public class DataInitializer {
 
-    @Inject
-    DataServiceBeanLocal dataService;
+    @EJB
+    private DataServiceLocal dataService;
 
     public void execute(@Observes @Initialized(ApplicationScoped.class) Object event) {
         if (dataService.getAllUsers().isEmpty()) {

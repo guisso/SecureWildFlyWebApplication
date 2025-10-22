@@ -2,18 +2,18 @@ package io.github.guisso.controllers;
 
 import io.github.guisso.entities.User;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import io.github.guisso.services.DataServiceBeanLocal;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
+import io.github.guisso.services.DataServiceLocal;
+import jakarta.ejb.EJB;
 
 @Named
 @RequestScoped
 public class UsersController {
     
-    @Inject
-    DataServiceBeanLocal dataService;
+    @EJB
+    private DataServiceLocal dataService;
     
     private List<User> allUsers;
     

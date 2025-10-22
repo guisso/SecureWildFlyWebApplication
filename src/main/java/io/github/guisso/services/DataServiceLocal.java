@@ -4,14 +4,14 @@ import io.github.guisso.entities.Quality;
 import io.github.guisso.entities.User;
 import java.util.List;
 import java.util.Optional;
-import javax.ejb.Local;
+import jakarta.ejb.Local;
 
 /**
  *
  * @author Luis Guisso <luis dot guisso at ifnmg dot edu dot br>
  */
 @Local
-public interface DataServiceBeanLocal {
+public interface DataServiceLocal {
     
     public User createUser(String name, String username, String password, String group);
     

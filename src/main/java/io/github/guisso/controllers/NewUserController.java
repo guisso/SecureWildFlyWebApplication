@@ -1,11 +1,11 @@
 package io.github.guisso.controllers;
 
 import io.github.guisso.entities.User;
-import io.github.guisso.services.DataServiceBeanLocal;
 import java.util.List;
-import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
+import io.github.guisso.services.DataServiceLocal;
+import jakarta.ejb.EJB;
 
 /**
  *
@@ -14,10 +14,10 @@ import javax.inject.Inject;
 @Named
 @RequestScoped
 public class NewUserController {
-    
-    @Inject
-    DataServiceBeanLocal dataService;
-    
+
+    @EJB
+    private DataServiceLocal dataService;
+
     private User user;
     private List<String> qualities;
 
@@ -43,22 +43,22 @@ public class NewUserController {
 
     public void setQualities(List<String> qualities) {
         this.qualities = qualities;
-        
+
     }
     //</editor-fold>
-    
+
     public String save() {
         user = dataService.createUser(
-                user.getName(), 
-                user.getUsername(), 
-                user.getPassword(), 
+                user.getName(),
+                user.getUsername(),
+                user.getPassword(),
                 user.getGroup());
-        
-        for(String q : qualities) {
+
+        for (String q : qualities) {
             dataService.createQuality(q, user);
         }
-        
+
         return "/app/users?faces-redirect=true";
     }
-    
+
 }

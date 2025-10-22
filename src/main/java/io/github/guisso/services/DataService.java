@@ -6,21 +6,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
 
 @Stateless
-public class DataServiceBean
-        implements DataServiceBeanLocal {
+public class DataService
+        implements DataServiceLocal {
 
-    @PersistenceContext(unitName = "secureApp")
-    EntityManager em;
+    @PersistenceContext(unitName = "SecureAppPU")
+    private EntityManager em;
 
     @Inject
-    Pbkdf2PasswordHash passwordHasher;
+    private Pbkdf2PasswordHash passwordHasher;
 
     @Override
     public User createUser(String name, String username, String password, String group) {
@@ -35,11 +35,9 @@ public class DataServiceBean
         User newUser = new User(
                 name,
                 username,
-                passwordHasher.generate(
-                        password.toCharArray()),
+                passwordHasher.generate(password.toCharArray()),
                 group);
         em.persist(newUser);
-//        em.flush();
         return newUser;
     }
 
@@ -47,7 +45,6 @@ public class DataServiceBean
     public Quality createQuality(String description, User user) {
         Quality newQuality = new Quality(description, user);
         em.persist(newQuality);
-//        em.flush();
         return newQuality;
     }
 

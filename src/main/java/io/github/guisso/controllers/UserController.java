@@ -4,21 +4,22 @@ import io.github.guisso.entities.Quality;
 import io.github.guisso.entities.User;
 import java.util.List;
 import java.util.Optional;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.security.enterprise.SecurityContext;
-import javax.servlet.ServletException;
-import io.github.guisso.services.DataServiceBeanLocal;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.security.enterprise.SecurityContext;
+import jakarta.servlet.ServletException;
+import io.github.guisso.services.DataServiceLocal;
+import jakarta.ejb.EJB;
 
 @Named
 @RequestScoped
 public class UserController {
 
-    @Inject
-    DataServiceBeanLocal dataService;
+    @EJB
+    private DataServiceLocal dataService;
 
     @Inject
     SecurityContext securityContext;

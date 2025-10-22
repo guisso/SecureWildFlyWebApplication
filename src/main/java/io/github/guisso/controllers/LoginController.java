@@ -1,19 +1,19 @@
 package io.github.guisso.controllers;
 
 import java.io.IOException;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.security.enterprise.AuthenticationStatus;
-import javax.security.enterprise.SecurityContext;
-import javax.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
-import javax.security.enterprise.credential.UsernamePasswordCredential;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotEmpty;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.security.enterprise.AuthenticationStatus;
+import jakarta.security.enterprise.SecurityContext;
+import jakarta.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
+import jakarta.security.enterprise.credential.UsernamePasswordCredential;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotEmpty;
 
 @Named
 @RequestScoped
@@ -26,10 +26,10 @@ public class LoginController {
     private String password;
 
     @Inject
-    FacesContext facesContext;
+    private FacesContext facesContext;
 
     @Inject
-    SecurityContext securityContext;
+    private SecurityContext securityContext;
 
     //<editor-fold defaultstate="collapsed" desc="Getters/Setters">
     public String getUsername() {
@@ -55,10 +55,13 @@ public class LoginController {
                 facesContext.responseComplete();
                 break;
             case SEND_FAILURE:
-                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid Credentials", null));
+                facesContext.addMessage(null, 
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+                                "Invalid Credentials", null));
                 break;
             case SUCCESS:
-                getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/app/index.xhtml");
+                getExternalContext().redirect(getExternalContext()
+                        .getRequestContextPath() + "/app/index.xhtml");
                 break;
         }
     }
@@ -68,7 +71,8 @@ public class LoginController {
         return securityContext.authenticate(
                 (HttpServletRequest) ec.getRequest(),
                 (HttpServletResponse) ec.getResponse(),
-                AuthenticationParameters.withParams().credential(new UsernamePasswordCredential(username, password)));
+                AuthenticationParameters.withParams().credential(
+                        new UsernamePasswordCredential(username, password)));
     }
 
     private ExternalContext getExternalContext() {
